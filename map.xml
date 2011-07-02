@@ -1,0 +1,33 @@
+<maps>
+    <map name='Desert Pines'>
+        <door name='Crystal Cavern, North Entrance' loc='148,226' target='e8fe56eb-c741-43f8-bf18-c9982269daf6' />
+        <door name='Crystal Cavern, East Entrance' loc='148,226' target='32b0493e-8a20-4f7d-b390-444be2e6d962' />
+        <door name='Storage Entrance' loc='166,100' target='2df1be6d-6c2c-46f1-a5fc-c0c137950b14' />
+        <door name='Ship to Valley of the Dwarfs' loc='365,338' target='4e333f7a-4df3-475b-8742-6bb4d4f34e06' />
+        <door name='Ship to Isla Prima' loc='351,355' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
+        <door name='Ship to Portland' loc='366,323' target='90a9a027-56e4-4027-a82a-5e00caa3bf91' />
+        <door name='South Exit to Portland' loc='172,12' target='fa1fb772-8466-4f82-b3d9-02d44fb072c9' />
+        <map name='Crystal Cavern'>
+            <alias name='CC' />
+            <door name='North Entrance' loc='12,176' target='e8fe56eb-c741-43f8-bf18-c9982269daf6' />
+            <door name='East Entrance' loc='173,155' target='32b0493e-8a20-4f7d-b390-444be2e6d962' />
+            <harvestable type='Rose Quartz' loc='144,98' />
+        </map>
+        <map name='Desert Pines Storage'>
+            <alias name='CCSto' />
+            <door name='Entrance' loc='99,22' target='2df1be6d-6c2c-46f1-a5fc-c0c137950b14' />
+            <npc type='Storage' loc='99,43' />
+        </map>
+    </map>
+    <map name='Valley of the Dwarfs'>
+        <door name='Ship to Desert Pines' loc='' target='4e333f7a-4df3-475b-8742-6bb4d4f34e06' />
+    </map>
+    <map name='Isla Prima'>
+        <door name='Ship to Desert Pines' loc='' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
+        <beam loc='104,143' />
+    </map>
+    <map name='Portland'>
+        <door name='Ship to Desert Pines' loc='141,58' target='90a9a027-56e4-4027-a82a-5e00caa3bf91' />
+        <door name='North Exit to Desert Pines' loc='170,368' target='fa1fb772-8466-4f82-b3d9-02d44fb072c9' />
+    </map>
+</maps>
