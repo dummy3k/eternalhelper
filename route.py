@@ -113,7 +113,7 @@ class LevelPrinter():
     def indent(self):
         return LevelPrinter(self.level + 1)
 
-def find_routes(loc, route, destination, lvlprt):
+def find_routes(loc, cost_map, destination, lvlprt):
     #~ print "find_routes(%s, %s, %s)" % (loc, route, destination)
     lvlprt.print_it("find_routes(%s, ...)" % (loc, ))
     #~ for item in route[-1].doors():
