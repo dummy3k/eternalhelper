@@ -20,3 +20,14 @@ class LocationExtratorTests(unittest.TestCase):
         self.assertEqual("Desert Pines", ex.map_name)
         self.assertEqual( (166,100), ex.loc)
 
+    def test_portland(self):
+        ex = Extractor()
+        self.assertTrue(ex.feed("You are in Portland  [169,369]"))
+        self.assertEqual("Portland", ex.map_name)
+        self.assertEqual( (169,369), ex.loc)
+
+    def test_portland_cave(self):
+        ex = Extractor()
+        self.assertTrue(ex.feed("You are in Portland  [169,369]"))
+        self.assertEqual("Portland", ex.map_name)
+        self.assertEqual( (169,369), ex.loc)
