@@ -22,6 +22,7 @@ class MapFrame(wx.Frame):
         self.Bind(wx.EVT_MOUSE_EVENTS, self.OnMouse)
 
         self.image = None
+        self.loc = None
 
     def OnMouse(self, event):
         if not event.LeftDown():
@@ -38,6 +39,7 @@ class MapFrame(wx.Frame):
             bg_image_path = os.path.expanduser('~/bin/el_linux/maps')
             bg_image_path = os.path.join(bg_image_path, map_xml[0].get('image'))
             self.image = wx.Image(bg_image_path, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+            self.loc = ex.loc
             self.Draw()
 
 
@@ -55,13 +57,24 @@ class MapFrame(wx.Frame):
         log.info("Draw()")
         dc = wx.BufferedPaintDC(self, self._Buffer)
         dc.Clear()
-        #~ dc.SetPen(wx.Pen('black'))
 
         if self.image:
             png_dc = wx.MemoryDC()
             png_dc.SelectObject(self.image)
             dc.Blit(0, 0, self.image.GetWidth(), self.image.GetHeight(),
                     png_dc, 0, 0)
+
+        if self.loc:
+            dc.SetPen(wx.Pen('blue'))
+            dc.DrawLine(self.loc[0] - 10,
+                        self.loc[1] - 10,
+                        self.loc[0] + 10,
+                        self.loc[1] + 10)
+            dc.DrawLine(self.loc[0] + 10,
+                        self.loc[1] - 10,
+                        self.loc[0] - 10,
+                        self.loc[1] + 10)
+
 
 def main():
     app = wx.App()
