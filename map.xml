@@ -1,5 +1,5 @@
 <maps>
-    <map name='Isla Prima'>
+    <map name='Isla Prima' image='startmap.bmp'>
         <door name='Ship to White Stone' loc='26,23' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
         <beam name='beam' loc='97,114' />
     </map>

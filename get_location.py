@@ -21,6 +21,14 @@ class Extractor():
 
         return False
 
+def get_last_location():
+    ex = Extractor()
+    with open(os.path.expanduser('~/.elc/main/chat_log.txt')) as f:
+        for line in f:
+            ex.feed(line.strip())
+
+    return ex
+
 if __name__ == '__main__':
     ex = Extractor()
     with open(os.path.expanduser('~/.elc/main/chat_log.txt')) as f:
