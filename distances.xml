@@ -11,6 +11,24 @@
     <!-- Desert Pines: STO to Crystal Cavern, North Entrance -->
     <distance map='Desert Pines' from='166,100' to='44,302' seconds='124' />
 
+    <!-- Desert Pines: STO to South Exit to Portland -->
+    <distance map='Desert Pines' from='166,100' to='172,12' seconds='26' />
+
+    <!-- Desert Pines: STO to Crystal Cavern, East Entrance -->
+    <distance map='Desert Pines' from='166,100' to='148,226' seconds='76' />
+
     <!-- Crystal Cavern: North Entrance to East Entrance -->
     <distance map='Crystal Cavern' from='44,302' to='148,226' seconds='49' />
+
+    <!-- Isla Prima: Beam to Ship to White Stone-->
+    <distance map='Isla Prima' from='97,114' to='26,23' seconds='44' />
+
+    <!-- VotD: -->
+    <distance map='Valley of the Dwarfs' from='70,8' to='68,170' seconds='46' />
+
+    <!-- Desert Pines: -Ship VotD to STO -->
+    <distance map='Desert Pines' from='365,338' to='166,100' seconds='91' />
+
+    <!-- -->
+    <distance map='' from='' to='' seconds='' />
 </distances>

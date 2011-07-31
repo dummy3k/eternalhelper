@@ -5,6 +5,7 @@ from pprint import pprint
 from dijkstra import Node, add_edge, solve, get_route
 
 STD_UNIT_COST = 29 / 100.
+CHANGE_MAP_COST = 2
 
 class LocatableObject():
     def __init__(self, xml):
@@ -74,13 +75,20 @@ while len(unconnted) > 0:
     for item in unconnted:
         if current.payload.target() == item.payload.target():
             unconnted.remove(item)
-            add_edge(1, current, item)
+            add_edge(CHANGE_MAP_COST, current, item)
 
 
+#add beam point
+beam_location = Node(LocatableObject(doc.xpath('//beam')[0]))
 for item in all_nodes:
-    print item
-    for subitem in item.edges:
-        print "-->" + str(subitem)
+    #~ add_edge(CHANGE_MAP_COST, beam_location, item)
+    item.edges.append((CHANGE_MAP_COST, beam_location))
+all_nodes.append(beam_location)
+
+#~ for item in all_nodes:
+    #~ print item
+    #~ for subitem in item.edges:
+        #~ print "-->" + str(subitem)
 
 def find_location_obj(map_name, loc):
     for item in all_nodes:
@@ -91,17 +99,23 @@ def find_location_obj(map_name, loc):
     raise Exception("not found")
 
 
-# South Exit to Portland
-where_am_i = find_location_obj('Desert Pines', (172,12))
+#~ where_am_i = find_location_obj('White Stone', (707,162))
+#~ where_am_i = find_location_obj('Desert Pines', (166,100))    #sto
+where_am_i = find_location_obj('Nordcarn', (51,184))
+#~ where_am_i = find_location_obj('Desert Pines', (44,302))
+#~ where_am_i = find_location_obj('Desert Pines', (172,12))    #South Exit to Portland
 where_am_i.cost = 0
 
 solve(all_nodes)
-for item in all_nodes:
-    print item
+#~ for item in all_nodes:
+    #~ print item
 
-# Crystal Cavern, North Entrance
-destination_location = find_location_obj('Desert Pines', (44,302))
+#~ destination_location = find_location_obj('Desert Pines', (44,302))
+#~ destination_location = find_location_obj('Nordcarn', (51,184))
+destination_location = find_location_obj('Desert Pines', (166,100))    #sto
 
-print "\nRoute"
+#~ print "\nRoute"
 for item in get_route(all_nodes, destination_location):
     print item
+
+#~ print beam_location_xml
