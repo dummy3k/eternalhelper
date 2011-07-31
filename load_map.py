@@ -29,6 +29,10 @@ class LocatableObject():
     def map_name(self):
         return self.xml.getparent().get('name')
 
+def distance(from_loc, to_loc):
+    return math.sqrt( (from_loc[0] - to_loc[0])**2 +\
+                      (from_loc[1] - to_loc[1])**2)
+
 doc = etree.ElementTree(file='map.xml')
 dist_doc = etree.ElementTree(file='distances.xml')
 all_nodes = []
@@ -59,8 +63,9 @@ for map_xml in doc.xpath('//map'):
             else:
                 from_loc = current.payload.loc_touple()
                 to_loc = item.payload.loc_touple()
-                cost = math.sqrt( (from_loc[0] - to_loc[0])**2 +\
-                                  (from_loc[1] - to_loc[1])**2)
+                #~ cost = math.sqrt( (from_loc[0] - to_loc[0])**2 +\
+                                  #~ (from_loc[1] - to_loc[1])**2)
+                cost = distance(from_loc, to_loc)
                 cost = int(cost * STD_UNIT_COST)
                 #~ cost = 1
 
@@ -98,10 +103,33 @@ def find_location_obj(map_name, loc):
 
     raise Exception("not found")
 
+import os
+from get_location import Extractor
+ex = Extractor()
+with open(os.path.expanduser('~/.elc/main/chat_log.txt')) as f:
+    for line in f:
+        ex.feed(line.strip())
+
+print "Your are in '%s' at %s" % (ex.map_name, ex.loc)
+near_locations = []
+for item in all_nodes:
+    if item.payload.map_name() == ex.map_name:
+        #~ print item
+        d = distance(item.payload.loc_touple(), ex.loc)
+        near_locations.append((d, item))
+
+near_locations.sort()
+
+print "\nnear_locations"
+pprint(near_locations)
+where_am_i = near_locations[0][1]
+print "\nnear_location: %s" % where_am_i
+
+#~ where_am_i = find_location_obj(ex.map_name, ex.loc)
 
 #~ where_am_i = find_location_obj('White Stone', (707,162))
 #~ where_am_i = find_location_obj('Desert Pines', (166,100))    #sto
-where_am_i = find_location_obj('Nordcarn', (51,184))
+#~ where_am_i = find_location_obj('Nordcarn', (51,184))
 #~ where_am_i = find_location_obj('Desert Pines', (44,302))
 #~ where_am_i = find_location_obj('Desert Pines', (172,12))    #South Exit to Portland
 where_am_i.cost = 0
@@ -114,7 +142,7 @@ solve(all_nodes)
 #~ destination_location = find_location_obj('Nordcarn', (51,184))
 destination_location = find_location_obj('Desert Pines', (166,100))    #sto
 
-#~ print "\nRoute"
+print "\nRoute"
 for item in get_route(all_nodes, destination_location):
     print item
 
