@@ -7,6 +7,7 @@ from lxml import etree
 
 import map_info
 from get_location import get_last_location
+from log_thread import LogThread, LocationChangedEvent, EVT_LOCATION_CHANGED
 
 if __name__ == '__main__':
     logging.config.fileConfig("logging.conf")
@@ -21,9 +22,17 @@ class MapFrame(wx.Frame):
         self.Bind(wx.EVT_PAINT, self.OnPaint)
         self.Bind(wx.EVT_SIZE, self.OnSize)
         self.Bind(wx.EVT_MOUSE_EVENTS, self.OnMouse)
+        self.Bind(EVT_LOCATION_CHANGED, self.OnLocationChanged)
 
         self.image = None
         self.loc = None
+        self.log_thread = LogThread(self)
+        self.log_thread.start()
+
+    def OnLocationChanged(self, event):
+        log.debug("OnLocationChanged()")
+        self.loc = event.loc
+        self.Draw()
 
     def OnMouse(self, event):
         if not event.LeftDown():
@@ -59,7 +68,7 @@ class MapFrame(wx.Frame):
         self.Draw()
 
     def Draw(self):
-        log.info("Draw()")
+        log.debug("Draw()")
         dc = wx.BufferedPaintDC(self, self._Buffer)
         dc.Clear()
 

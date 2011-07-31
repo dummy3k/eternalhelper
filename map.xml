@@ -9,6 +9,7 @@
         <alias name='White Stone -  Lakeside Village' />
         <door name='Ship to Isla Prima' loc='707,162' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
         <door name='Ship to Desert Piness' loc='720,145' target='87b615f6-1a2e-4a7d-9fac-23cf0c239ebe' />
+        <storage name='Storage' loc='469,421' />
     </map>
     <map name='Desert Pines'>
         <door name='Crystal Cavern, North Entrance' loc='44,302' target='e8fe56eb-c741-43f8-bf18-c9982269daf6' />
