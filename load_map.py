@@ -4,15 +4,18 @@ from copy import copy
 from pprint import pprint
 from dijkstra import Node, add_edge, solve, get_route
 
+STD_UNIT_COST = 29 / 100.
+
 class LocatableObject():
     def __init__(self, xml):
         self.xml = xml
 
     def __repr__(self):
         m = self.xml.getparent()
-        return "LocatableObject(map: %s, name: %s)" %\
+        return "LocatableObject(%s, %s [%s])" %\
             (m.get('name'),
-             self.xml.get('name'))
+             self.xml.get('name'),
+             self.xml.get('loc'))
         #~ return etree.tostring(self.xml)
 
     def loc_touple(self):
@@ -57,7 +60,8 @@ for map_xml in doc.xpath('//map'):
                 to_loc = item.payload.loc_touple()
                 cost = math.sqrt( (from_loc[0] - to_loc[0])**2 +\
                                   (from_loc[1] - to_loc[1])**2)
-                cost = int(cost)
+                cost = int(cost * STD_UNIT_COST)
+                #~ cost = 1
 
             add_edge(cost, current, item)
 
