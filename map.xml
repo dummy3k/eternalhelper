@@ -1,9 +1,12 @@
 <maps>
-    <map name='Isla Prima' image='startmap.bmp'>
+    <map name='Isla Prima' image='startmap.bmp' size="192,192">
+        <alias name='Isla Prima - The docks' />
         <door name='Ship to White Stone' loc='26,23' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
         <beam name='beam' loc='97,114' />
     </map>
-    <map name='White Stone'>
+    <map name='White Stone' image='map2.bmp' size="786,786">
+        <alias name='White Stone, Lakeside Village' />
+        <alias name='White Stone -  Lakeside Village' />
         <door name='Ship to Isla Prima' loc='707,162' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
         <door name='Ship to Desert Piness' loc='720,145' target='87b615f6-1a2e-4a7d-9fac-23cf0c239ebe' />
     </map>

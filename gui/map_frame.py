@@ -5,6 +5,7 @@ import Image, ImageDraw, ImageFont
 import os
 from lxml import etree
 
+import map_info
 from get_location import get_last_location
 
 if __name__ == '__main__':
@@ -14,7 +15,7 @@ log = logging.getLogger(__name__)
 
 class MapFrame(wx.Frame):
     def __init__(self, parent, id=wx.ID_ANY, title="MapFrame", pos=wx.DefaultPosition,
-                 size=(500,500), style=wx.DEFAULT_FRAME_STYLE):
+                 size=(512,512), style=wx.DEFAULT_FRAME_STYLE):
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
         self.Bind(wx.EVT_PAINT, self.OnPaint)
@@ -31,15 +32,19 @@ class MapFrame(wx.Frame):
         ex = get_last_location()
         log.debug("map_name: %s, loc: %s" % (ex.map_name, ex.loc))
 
-        doc = etree.ElementTree(file='map.xml')
-        map_xml = doc.xpath('//map[@name="%s"]' % ex.map_name)
+        #~ doc = etree.ElementTree(file='map.xml')
+        #~ map_xml = doc.xpath('//map[@name="%s"]' % ex.map_name)
+        map_xml = map_info.load_by_alias(ex.map_name)
         if not map_xml:
             log.warn("unkown map '%s'" % ex.map_name)
         else:
             bg_image_path = os.path.expanduser('~/bin/el_linux/maps')
-            bg_image_path = os.path.join(bg_image_path, map_xml[0].get('image'))
+            bg_image_path = os.path.join(bg_image_path, map_xml.get('image'))
             self.image = wx.Image(bg_image_path, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
             self.loc = ex.loc
+
+            size = map_xml.get('size').split(',')
+            self.map_size = (int(size[0]), int(size[1]))
             self.Draw()
 
 
@@ -66,14 +71,22 @@ class MapFrame(wx.Frame):
 
         if self.loc:
             dc.SetPen(wx.Pen('blue'))
-            dc.DrawLine(self.loc[0] - 10,
-                        self.loc[1] - 10,
-                        self.loc[0] + 10,
-                        self.loc[1] + 10)
-            dc.DrawLine(self.loc[0] + 10,
-                        self.loc[1] - 10,
-                        self.loc[0] - 10,
-                        self.loc[1] + 10)
+            scale = self.image.GetSize()[0] * 1. / self.map_size[0]
+            log.debug("scale: %s" % scale)
+            dc.DrawCircle(self.loc[0] * scale,
+                          (self.map_size[1] - self.loc[1]) * scale,
+                          10)
+            #~ dc.DrawCircle(self.loc[0] * scale,
+                          #~ self.image.GetSize()[1] - self.loc[1] * scale,
+                          #~ 10)
+            #~ dc.DrawLine(self.loc[0] * scale - 10,
+                        #~ self.Height - self.loc[1] * scale + 10,
+                        #~ self.loc[0] * scale + 10,
+                        #~ self.Height - self.loc[1] * scale - 10)
+            #~ dc.DrawLine(self.loc[0] + 10,
+                        #~ self.map_size[1]-self.loc[1] - 10,
+                        #~ self.loc[0] - 10,
+                        #~ self.map_size[1]-self.loc[1] + 10)
 
 
 def main():

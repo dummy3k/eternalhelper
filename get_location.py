@@ -6,9 +6,9 @@ class Extractor():
         self.loc = None
 
     def feed(self, s):
-        m = re.match('.*Welcome to the (.*)', s)
+        m = re.match('.*Welcome to (the )?(.*)', s)
         if m:
-            self.map_name = m.group(1)
+            self.map_name = m.group(2)
             return True
 
         m = re.match('.*You are in (.*)\s+\[(\d+),(\d+)\]', s)
