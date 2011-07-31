@@ -1,4 +1,7 @@
 <distances>
-    <!-- Crystal Cavern: North Entrance to Rose Quartz -->
-    <distance map='Crystal Cavern' from='12,176' to='' time='01:21' />
+    <!-- Desert Pines:  Ship to VotD to Ship to Portland -->
+    <distance map='Desert Pines' from='365,338' to='366,323' seconds='7' />
+
+    <!-- Desert Pines: Ship DP to  North Exit to Desert Pines-->
+    <distance map='Desert Pines' from='141,58' to='170,368' seconds='112' />
 </distances>

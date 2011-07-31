@@ -1,11 +1,19 @@
 <maps>
+    <map name='Isla Prima'>
+        <door name='Ship to White Stone' loc='26,23' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
+        <beam loc='104,143' />
+    </map>
+    <map name='White Stone'>
+        <door name='Ship to Isla Prima' loc='707,162' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
+        <door name='Ship to Desert Piness' loc='720,145' target='87b615f6-1a2e-4a7d-9fac-23cf0c239ebe' />
+    </map>
     <map name='Desert Pines'>
-        <door name='Crystal Cavern, North Entrance' loc='148,226' target='e8fe56eb-c741-43f8-bf18-c9982269daf6' />
+        <door name='Crystal Cavern, North Entrance' loc='44,302' target='e8fe56eb-c741-43f8-bf18-c9982269daf6' />
         <door name='Crystal Cavern, East Entrance' loc='148,226' target='32b0493e-8a20-4f7d-b390-444be2e6d962' />
         <door name='Storage Entrance' loc='166,100' target='2df1be6d-6c2c-46f1-a5fc-c0c137950b14' />
         <door name='Ship to Valley of the Dwarfs' loc='365,338' target='4e333f7a-4df3-475b-8742-6bb4d4f34e06' />
-        <door name='Ship to Isla Prima' loc='351,355' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
         <door name='Ship to Portland' loc='366,323' target='90a9a027-56e4-4027-a82a-5e00caa3bf91' />
+        <door name='Ship to White Stone' loc='351,350' target='87b615f6-1a2e-4a7d-9fac-23cf0c239ebe' />
         <door name='South Exit to Portland' loc='172,12' target='fa1fb772-8466-4f82-b3d9-02d44fb072c9' />
         <map name='Crystal Cavern'>
             <alias name='CC' />
@@ -20,11 +28,7 @@
         </map>
     </map>
     <map name='Valley of the Dwarfs'>
-        <door name='Ship to Desert Pines' loc='' target='4e333f7a-4df3-475b-8742-6bb4d4f34e06' />
-    </map>
-    <map name='Isla Prima'>
-        <door name='Ship to Desert Pines' loc='' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
-        <beam loc='104,143' />
+        <door name='Ship to Desert Pines' loc='68,170' target='4e333f7a-4df3-475b-8742-6bb4d4f34e06' />
     </map>
     <map name='Portland'>
         <door name='Ship to Desert Pines' loc='141,58' target='90a9a027-56e4-4027-a82a-5e00caa3bf91' />
