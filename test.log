@@ -1,0 +1,124 @@
+19:14:12,502 INFO  [__main__] entering main loop
+19:16:53,727 DEBUG [__main__] OnSize!
+19:16:53,727 INFO  [__main__] Draw()
+19:16:53,728 DEBUG [__main__] OnSize!
+19:16:53,728 INFO  [__main__] Draw()
+19:16:53,733 INFO  [__main__] entering main loop
+19:16:53,735 DEBUG [__main__] OnPaint()
+19:16:53,735 INFO  [__main__] Draw()
+19:16:53,746 DEBUG [__main__] OnPaint()
+19:16:53,746 INFO  [__main__] Draw()
+19:16:53,879 DEBUG [__main__] OnPaint()
+19:16:53,880 INFO  [__main__] Draw()
+19:17:24,570 DEBUG [__main__] OnSize!
+19:17:24,572 DEBUG [__main__] OnSize!
+19:17:24,577 INFO  [__main__] entering main loop
+19:17:24,578 DEBUG [__main__] OnPaint()
+19:17:24,579 INFO  [__main__] Draw()
+19:17:24,588 DEBUG [__main__] OnPaint()
+19:17:24,588 INFO  [__main__] Draw()
+19:17:24,652 DEBUG [__main__] OnPaint()
+19:17:24,652 INFO  [__main__] Draw()
+19:17:34,334 DEBUG [__main__] OnPaint()
+19:17:34,335 INFO  [__main__] Draw()
+19:17:34,346 DEBUG [__main__] OnSize!
+19:17:34,347 DEBUG [__main__] OnSize!
+19:17:34,350 DEBUG [__main__] OnPaint()
+19:17:34,351 INFO  [__main__] Draw()
+19:17:39,594 DEBUG [__main__] OnSize!
+19:17:39,595 DEBUG [__main__] OnSize!
+19:17:39,601 INFO  [__main__] entering main loop
+19:18:08,649 DEBUG [__main__] OnSize!
+19:18:08,649 INFO  [__main__] Draw()
+19:18:08,650 DEBUG [__main__] OnSize!
+19:18:08,650 INFO  [__main__] Draw()
+19:18:08,656 INFO  [__main__] entering main loop
+19:18:14,145 DEBUG [__main__] OnSize!
+19:18:14,145 INFO  [__main__] Draw()
+19:18:14,146 DEBUG [__main__] OnSize!
+19:18:14,146 INFO  [__main__] Draw()
+19:18:14,151 INFO  [__main__] entering main loop
+19:18:14,153 DEBUG [__main__] OnPaint()
+19:18:14,153 INFO  [__main__] Draw()
+19:18:14,163 DEBUG [__main__] OnPaint()
+19:18:14,163 INFO  [__main__] Draw()
+19:18:14,215 DEBUG [__main__] OnPaint()
+19:18:14,215 INFO  [__main__] Draw()
+19:30:52,872 DEBUG [__main__] OnSize!
+19:30:52,872 INFO  [__main__] Draw()
+19:30:52,873 DEBUG [__main__] OnSize!
+19:30:52,873 INFO  [__main__] Draw()
+19:30:52,880 INFO  [__main__] entering main loop
+19:30:52,883 DEBUG [__main__] OnPaint()
+19:30:52,883 INFO  [__main__] Draw()
+19:30:52,998 DEBUG [__main__] OnPaint()
+19:30:52,998 INFO  [__main__] Draw()
+19:31:02,162 DEBUG [__main__] OnSize!
+19:31:02,162 INFO  [__main__] Draw()
+19:31:02,163 DEBUG [__main__] OnSize!
+19:31:02,163 INFO  [__main__] Draw()
+19:31:02,169 INFO  [__main__] entering main loop
+19:31:02,171 DEBUG [__main__] OnPaint()
+19:31:02,171 INFO  [__main__] Draw()
+19:31:02,326 DEBUG [__main__] OnPaint()
+19:31:02,327 INFO  [__main__] Draw()
+19:31:20,007 DEBUG [__main__] OnSize!
+19:31:20,008 INFO  [__main__] Draw()
+19:31:20,009 DEBUG [__main__] OnSize!
+19:31:20,010 INFO  [__main__] Draw()
+19:31:20,016 INFO  [__main__] entering main loop
+19:31:20,018 DEBUG [__main__] OnPaint()
+19:31:20,018 INFO  [__main__] Draw()
+19:31:20,030 DEBUG [__main__] OnPaint()
+19:31:20,030 INFO  [__main__] Draw()
+19:31:20,088 DEBUG [__main__] OnPaint()
+19:31:20,089 INFO  [__main__] Draw()
+19:33:17,590 DEBUG [__main__] OnSize!
+19:33:17,591 INFO  [__main__] Draw()
+19:33:17,592 DEBUG [__main__] OnSize!
+19:33:17,592 INFO  [__main__] Draw()
+19:33:17,597 INFO  [__main__] entering main loop
+19:33:17,599 DEBUG [__main__] OnPaint()
+19:33:17,599 INFO  [__main__] Draw()
+19:33:17,621 DEBUG [__main__] OnPaint()
+19:33:17,622 INFO  [__main__] Draw()
+19:33:32,055 DEBUG [__main__] OnSize!
+19:33:32,056 INFO  [__main__] Draw()
+19:33:32,057 DEBUG [__main__] OnSize!
+19:33:32,057 INFO  [__main__] Draw()
+19:33:32,064 INFO  [__main__] entering main loop
+19:33:32,067 DEBUG [__main__] OnPaint()
+19:33:32,067 INFO  [__main__] Draw()
+19:33:32,150 DEBUG [__main__] OnPaint()
+19:33:32,150 INFO  [__main__] Draw()
+19:33:48,724 DEBUG [__main__] OnSize!
+19:33:48,725 INFO  [__main__] Draw()
+19:33:48,726 DEBUG [__main__] OnSize!
+19:33:48,726 INFO  [__main__] Draw()
+19:33:48,736 INFO  [__main__] entering main loop
+19:33:48,738 DEBUG [__main__] OnPaint()
+19:33:48,738 INFO  [__main__] Draw()
+19:33:48,825 DEBUG [__main__] OnPaint()
+19:33:48,825 INFO  [__main__] Draw()
+19:33:50,440 DEBUG [__main__] OnPaint()
+19:33:50,441 INFO  [__main__] Draw()
+19:33:50,445 DEBUG [__main__] OnSize!
+19:33:50,445 INFO  [__main__] Draw()
+19:33:50,446 DEBUG [__main__] OnSize!
+19:33:50,447 INFO  [__main__] Draw()
+19:33:50,451 DEBUG [__main__] OnPaint()
+19:33:50,452 INFO  [__main__] Draw()
+19:33:50,488 DEBUG [__main__] OnPaint()
+19:33:50,488 INFO  [__main__] Draw()
+19:33:51,559 DEBUG [__main__] OnSize!
+19:33:51,559 INFO  [__main__] Draw()
+19:33:51,560 DEBUG [__main__] OnSize!
+19:33:51,561 INFO  [__main__] Draw()
+19:33:51,564 DEBUG [__main__] OnPaint()
+19:33:51,564 INFO  [__main__] Draw()
+19:33:52,462 DEBUG [__main__] OnSize!
+19:33:52,471 INFO  [__main__] Draw()
+19:33:52,472 DEBUG [__main__] OnSize!
+19:33:52,473 INFO  [__main__] Draw()
+19:33:52,477 DEBUG [__main__] OnPaint()
+19:33:52,477 INFO  [__main__] Draw()
