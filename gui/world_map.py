@@ -82,6 +82,7 @@ class WordMapWindow(wx.Window):
         el_to_bmp = 294. / (384 * 3)
 
         doc = etree.ElementTree(file='map.xml')
+
         for item in doc.xpath('//map'):
             if not item.get('loc'):
                 continue
@@ -94,8 +95,6 @@ class WordMapWindow(wx.Window):
             size = (int(size[0]), int(size[1]))
 
             loc = (loc[0] + self.offset[0], loc[1] + self.offset[1])
-            #~ size = (size[0] + self.offset[0], size[1] + self.offset[1])
-
             log.debug("%s, %s, %s" % (item.get('name'), loc, size))
 
             dc.SetBrush(wx.Brush('red', wx.TRANSPARENT))
@@ -104,12 +103,37 @@ class WordMapWindow(wx.Window):
                              size[0] * el_to_bmp + 1,
                              size[1] * el_to_bmp + 1)
 
-            #~ dc.DrawLine(self.loc[0] * scale - 10,
-                        #~ self.Height - self.loc[1] * scale + 10,
-                        #~ self.loc[0] * scale + 10,
-                        #~ self.Height - self.loc[1] * scale - 10)
+        for item in doc.xpath('//door'):
+        #~ for item in doc.xpath('//door[@name="Storage Entrance"]'):
+            if not item.getparent().get('loc'):
+                continue
+            if not item.getparent().get('size'):
+                continue
+            log.debug(item.get('name'))
 
-            #~ log.debug("foo")
+            loc = item.get('loc').split(',')
+            loc = (int(loc[0]), int(loc[1]))
+            map_loc = item.getparent().get('loc').split(',')
+            map_loc = (int(map_loc[0]), int(map_loc[1]))
+            map_size = item.getparent().get('size').split(',')
+            map_size = (int(map_size[0]), int(map_size[1]))
+
+            loc = (map_loc[0] + loc[0],
+                   map_loc[1] + map_size[1] - loc[1])
+            log.debug(loc)
+            loc = (loc[0] + self.offset[0], loc[1] + self.offset[1])
+            dc.DrawCircle(loc[0] * el_to_bmp, loc[1] * el_to_bmp, 4)
+            self.DrawCross(dc, loc[0] * el_to_bmp, loc[1] * el_to_bmp, 3)
+
+    def DrawCross(self, dc, x, y, size):
+        dc.DrawLine(x - size,
+                    y - size,
+                    x + size,
+                    y + size)
+        dc.DrawLine(x + size,
+                    y - size,
+                    x - size,
+                    y + size)
 
 class WordMapFrame(wx.Frame):
     def __init__(self, parent, id=wx.ID_ANY, title="WordMapFrame", pos=wx.DefaultPosition,
