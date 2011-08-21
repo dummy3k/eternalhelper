@@ -166,7 +166,7 @@ class WordMapWindow(wx.Window):
         for item in self.sprites:
             loc = item.HitTest(event.GetX(), event.GetY())
             if loc:
-                log.debug(loc)
+                #~ log.debug(loc)
                 if event.RightDown():
                     self.nav_from = loc
                 else:
@@ -191,28 +191,28 @@ class WordMapWindow(wx.Window):
         for item in self.sprites:
             item.Draw(dc)
 
+        ms = MapService()
+        ds = DistanceService(ms)
+
         if self.nav_to:
             dc.SetPen(wx.Pen('red'))
             DrawElLocation(dc, self.nav_to)
+
+            dc.SetPen(wx.Pen('yellow'))
+            for item in ms.doors(self.nav_to.map_name):
+                DrawElLocation(dc, item)
+            dc.SetPen(wx.Pen('green'))
+            DrawElLocation(dc, ds.nearest_door(self.nav_to))
 
         if self.nav_from:
             dc.SetPen(wx.Pen('blue'))
             DrawElLocation(dc, self.nav_from)
 
             dc.SetPen(wx.Pen('yellow'))
-            ms = MapService()
-            ds = DistanceService()
-            nearest_door = None
             for item in ms.doors(self.nav_from.map_name):
                 DrawElLocation(dc, item)
-                if not nearest_door:
-                    nearest_door = item
-                elif ds.in_map_distance(item, self.nav_from) <\
-                     ds.in_map_distance(nearest_door, self.nav_from):
-                    nearest_door = item
-
-        dc.SetPen(wx.Pen('green'))
-        DrawElLocation(dc, nearest_door)
+            dc.SetPen(wx.Pen('green'))
+            DrawElLocation(dc, ds.nearest_door(self.nav_from))
 
 
         #~ doc = etree.ElementTree(file='map.xml')
