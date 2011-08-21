@@ -25,7 +25,7 @@
             <door name='East Entrance' loc='173,155' target='32b0493e-8a20-4f7d-b390-444be2e6d962' />
             <harvestable type='Rose Quartz' loc='144,98' />
         </map>
-        <map name='Desert Pines Storage'>
+        <map name='Desert Pines Storage' loc="67,306" size="105,55">
             <alias name='CCSto' />
             <door name='Entrance' loc='99,22' target='2df1be6d-6c2c-46f1-a5fc-c0c137950b14' />
             <npc type='Storage' loc='99,43' />

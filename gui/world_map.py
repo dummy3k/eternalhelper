@@ -109,11 +109,11 @@ class WordMapWindow(wx.Window):
                         #~ self.loc[0] * scale + 10,
                         #~ self.Height - self.loc[1] * scale - 10)
 
-            log.debug("foo")
+            #~ log.debug("foo")
 
 class WordMapFrame(wx.Frame):
     def __init__(self, parent, id=wx.ID_ANY, title="WordMapFrame", pos=wx.DefaultPosition,
-                 size=(512,512), style=wx.DEFAULT_FRAME_STYLE | wx.WANTS_CHARS):
+                 size=(512,512), style=wx.DEFAULT_FRAME_STYLE):
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
 
