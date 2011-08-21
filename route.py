@@ -1,11 +1,14 @@
+import logging
+import logging.config
+
 from lxml import etree
 from copy import copy
 from location import Location
 
-#~ raw_input("Where are you? Example: dp, sto\n")
-#~ raw_input("Where do you want to go? Example: gold\n")
-#~ raw_input("Do you want to visit a storage in between? [yes/no]\n")
+if __name__ == '__main__':
+    logging.config.fileConfig("logging.conf")
 
+log = logging.getLogger(__name__)
 doc = etree.ElementTree(file='map.xml')
 
 
@@ -75,16 +78,12 @@ class Distance():
     def __repr__(self):
         return "Dist($%s, '%s' -> '%s')" % (self.cost, self.from_loc, self.to_loc)
 
-
-#~ from lxml.etree import ElementTree
-
-
 class LevelPrinter():
     def __init__(self, level):
         self.level = level
 
     def print_it(self, s):
-        print " " * self.level + str(s)
+        log.debug(" " * self.level + str(s))
 
     def indent(self):
         return LevelPrinter(self.level + 1)
@@ -128,6 +127,8 @@ def find_routes(loc, route, destination, lvlprt):
         #~ print item in route
         #~ if not item in route:
 
+#~ def calc_distances(loc, ms, ds):
+
 if __name__ == '__main__':
     #~ current_location = Location('Desert Pines Storage', 'Entrance')
     #~ destination_location = Location('Crystal Cavern', 'Rose Quartz')
@@ -136,7 +137,8 @@ if __name__ == '__main__':
     #~ current_location = Map('Portland')
     #~ current_location = Map('Desert Pines')
     current_location = Door('Desert Pines Storage', "Entrance")
-    destination_location = Door("Crystal Cavern", "East Entrance")
+    destination_location = Door("White Stone", "Ship to Isla Prima")
+    #~ destination_location = Door("Crystal Cavern", "East Entrance")
     #~ destination_location = Map("Crystal Cavern")
     #~ destination_location = Location(doc.xpath('//map[@name="Crystal Cavern"]/harvestable[@type="Rose Quartz"]')[0])
     #~ destination_location =None

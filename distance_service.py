@@ -10,6 +10,9 @@ class DistanceService():
         return math.sqrt((alpha.loc[0] - beta.loc[0])**2 +
                          (alpha.loc[1] - beta.loc[1])**2)
 
+    def cost(self, alpha, beta):
+        return 1
+
     def nearest_door(self, loc):
         doors = self.ms.doors(loc.map_name)
         tmp = map(lambda x: (self.in_map_distance(loc, x), x), doors)
