@@ -1,5 +1,6 @@
 from lxml import etree
 from copy import copy
+from location import Location
 
 #~ raw_input("Where are you? Example: dp, sto\n")
 #~ raw_input("Where do you want to go? Example: gold\n")
@@ -29,17 +30,6 @@ class Map():
 
     def __eq__(self, other):
         return self.map_name == other.map_name
-
-class Location():
-    def __init__(self, map_name, loc):
-        self.map_name = map_name
-        self.loc = loc
-
-    def __repr__(self):
-        return "Loc('%s', '%s')" % (self.map_name, self.loc)
-
-    def __eq__(self, other):
-        return self.map_name == other.map_name and self.loc == other.loc
 
 class Door(Location):
     def __init__(self, map_name, name):
@@ -85,23 +75,9 @@ class Distance():
     def __repr__(self):
         return "Dist($%s, '%s' -> '%s')" % (self.cost, self.from_loc, self.to_loc)
 
-#~ current_location = Location('Desert Pines Storage', 'Entrance')
-#~ destination_location = Location('Crystal Cavern', 'Rose Quartz')
-#~ current_location = Location(doc.xpath('//map[@name="Desert Pines"]/door[@name="Storage Entrance"]')[0])
-#~ current_location = Map('Desert Pines Storage')
-#~ current_location = Map('Portland')
-current_location = Map('Desert Pines')
-#~ current_location = Door('Desert Pines Storage', "Entrance")
-destination_location = Door("Crystal Cavern", "East Entrance")
-#~ destination_location = Map("Crystal Cavern")
-#~ destination_location = Location(doc.xpath('//map[@name="Crystal Cavern"]/harvestable[@type="Rose Quartz"]')[0])
-#~ destination_location =None
 
 #~ from lxml.etree import ElementTree
 
-print current_location
-print destination_location
-print destination_location == Door("Crystal Cavern", "East Entrance")
 
 class LevelPrinter():
     def __init__(self, level):
@@ -113,7 +89,7 @@ class LevelPrinter():
     def indent(self):
         return LevelPrinter(self.level + 1)
 
-def find_routes(loc, cost_map, destination, lvlprt):
+def find_routes(loc, route, cost_map, destination, lvlprt):
     #~ print "find_routes(%s, %s, %s)" % (loc, route, destination)
     lvlprt.print_it("find_routes(%s, ...)" % (loc, ))
     #~ for item in route[-1].doors():
@@ -152,18 +128,38 @@ def find_routes(loc, cost_map, destination, lvlprt):
         #~ print item in route
         #~ if not item in route:
 
-for door in current_location.doors():
-    print "--- %s" % door
-    #~ initial_route = [Dist(door, door.other_side)]
-    find_routes(door, [], destination_location, LevelPrinter(0))
-#~ find_routes([current_location], destination_location)
+if __name__ == '__main__':
+    #~ current_location = Location('Desert Pines Storage', 'Entrance')
+    #~ destination_location = Location('Crystal Cavern', 'Rose Quartz')
+    #~ current_location = Location(doc.xpath('//map[@name="Desert Pines"]/door[@name="Storage Entrance"]')[0])
+    #~ current_location = Map('Desert Pines Storage')
+    #~ current_location = Map('Portland')
+    #~ current_location = Map('Desert Pines')
+    current_location = Door('Desert Pines Storage', "Entrance")
+    destination_location = Door("Crystal Cavern", "East Entrance")
+    #~ destination_location = Map("Crystal Cavern")
+    #~ destination_location = Location(doc.xpath('//map[@name="Crystal Cavern"]/harvestable[@type="Rose Quartz"]')[0])
+    #~ destination_location =None
 
-#~ for e in doc.xpath('//map'):
-    #~ print e.get('name')
+    print current_location
+    print destination_location
+    #~ print destination_location == Door("Crystal Cavern", "East Entrance")
 
-#~ for e in doc.xpath('//map[@name="Desert Pines"]/door'):
-    #~ print etree.tostring(e)
+    initial_route = [Distance(current_location, current_location.other_side)]
+    find_routes(current_location, initial_route, [], destination_location, LevelPrinter(0))
 
-#~ doc.xpath('//map[@name="Desert Pines"]/door[@name="Storage Entrance"]')[0]
+    #for door in current_location.doors():
+        #print "--- %s" % door
+        ##~ initial_route = [Dist(door, door.other_side)]
+        #find_routes(door, [], destination_location, LevelPrinter(0))
+    #~ find_routes([current_location], destination_location)
+
+    #~ for e in doc.xpath('//map'):
+        #~ print e.get('name')
+
+    #~ for e in doc.xpath('//map[@name="Desert Pines"]/door'):
+        #~ print etree.tostring(e)
+
+    #~ doc.xpath('//map[@name="Desert Pines"]/door[@name="Storage Entrance"]')[0]
 
 
