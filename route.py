@@ -89,7 +89,7 @@ class LevelPrinter():
     def indent(self):
         return LevelPrinter(self.level + 1)
 
-def find_routes(loc, route, cost_map, destination, lvlprt):
+def find_routes(loc, route, destination, lvlprt):
     #~ print "find_routes(%s, %s, %s)" % (loc, route, destination)
     lvlprt.print_it("find_routes(%s, ...)" % (loc, ))
     #~ for item in route[-1].doors():
@@ -146,7 +146,7 @@ if __name__ == '__main__':
     #~ print destination_location == Door("Crystal Cavern", "East Entrance")
 
     initial_route = [Distance(current_location, current_location.other_side)]
-    find_routes(current_location, initial_route, [], destination_location, LevelPrinter(0))
+    find_routes(current_location, [], destination_location, LevelPrinter(0))
 
     #for door in current_location.doors():
         #print "--- %s" % door

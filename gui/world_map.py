@@ -9,6 +9,10 @@ from lxml import etree
 #~ from get_location import get_last_location
 #~ from log_thread import LogThread, LocationChangedEvent, EVT_LOCATION_CHANGED
 from location import Location
+from map_service import MapService
+from distance_service import DistanceService
+
+#~ from route import
 
 if __name__ == '__main__':
     logging.config.fileConfig("logging.conf")
@@ -92,7 +96,6 @@ class MapSprite():
         el_loc = (el_loc[0] - MAP_OFFSET[0] - self.__loc__[0],
                   self.__size__[1] - (el_loc[1] - MAP_OFFSET[1] - self.__loc__[1]))
         return Location(self.map_name, el_loc)
-
 
 class WordMapWindow(wx.Window):
     def __init__(self, parent):
@@ -195,6 +198,22 @@ class WordMapWindow(wx.Window):
         if self.nav_from:
             dc.SetPen(wx.Pen('blue'))
             DrawElLocation(dc, self.nav_from)
+
+            dc.SetPen(wx.Pen('yellow'))
+            ms = MapService()
+            ds = DistanceService()
+            nearest_door = None
+            for item in ms.doors(self.nav_from.map_name):
+                DrawElLocation(dc, item)
+                if not nearest_door:
+                    nearest_door = item
+                elif ds.in_map_distance(item, self.nav_from) <\
+                     ds.in_map_distance(nearest_door, self.nav_from):
+                    nearest_door = item
+
+        dc.SetPen(wx.Pen('green'))
+        DrawElLocation(dc, nearest_door)
+
 
         #~ doc = etree.ElementTree(file='map.xml')
 
