@@ -42,6 +42,7 @@
         <door name='North Exit to Desert Pines' loc='170,368' target='fa1fb772-8466-4f82-b3d9-02d44fb072c9' />
         <door name='Portland Cave' loc='89,143' target='b3c6d2c7-5794-42cb-8416-a4134feb5802' />
         <door name='East Exit to White Stone' loc='370,167' target='e4a90fc7-f5d3-48cc-8104-4ce26ce6c1be' />
+        <door name='South Exit toMarcraven Marsh' loc='314,21' target='33975b15-2ba6-4667-b591-9e4628086e1a' />
         <map name='Portland Cave'>
             <door name='Exit to Portland' loc='175,180' target='b3c6d2c7-5794-42cb-8416-a4134feb5802' />
             <!--
@@ -59,6 +60,8 @@
     <!-- <map name='Tahraji Desert' loc="-100,300" size="384,384" /> -->
     <map name='Kilaran Fields' loc="384,0" size="192,192" />
     <map name='Tarsengaard' loc="768,0" size="384,384" />
-    <map name='Marcraven Marsh' loc="0,768" size="384,384" />
+    <map name='Marcraven Marsh' loc="0,768" size="384,384">
+        <door name='North Exit to Portland' loc='249,367' target='33975b15-2ba6-4667-b591-9e4628086e1a' />
+    </map>
     <map name='Narlik' loc="192,1152" size="192,192" />
 </maps>
