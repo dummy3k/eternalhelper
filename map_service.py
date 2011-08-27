@@ -39,14 +39,3 @@ class MapService():
                 log.debug("%s != %s" % (other, door))
                 return other
         return None
-
-
-    #~ def target_ids(self):
-        #~ return set(map(lambda x: x.get('target'), doc.xpath('//door')))
-#~
-    #~ def target_doors(self, target)
-        #~ retval = []
-        #~ for item in self.doc.xpath('//door[@target="%s"]' % target):
-            #~ map_name = item.getparent().get('name')
-            #~ retval.append(Door(map_name, item))
-        #~ return retval
