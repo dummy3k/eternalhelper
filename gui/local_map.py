@@ -118,13 +118,14 @@ class LocalMapWindow(wx.Window):
         return None
 
 class LocalMapFrame(wx.Frame):
-    def __init__(self, parent, map_name, id=wx.ID_ANY,
+    def __init__(self, parent, ms, map_name, id=wx.ID_ANY,
                  title="LocalMapFrame", pos=wx.DefaultPosition,
                  size=(512,512), style=wx.DEFAULT_FRAME_STYLE):
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
         wx.GetApp().local_map_windows[map_name] = self
 
+        self.ms = ms
         self.ms = MapService()
 
         self.wnd = LocalMapWindow(self, self.ms, map_name)
@@ -154,14 +155,14 @@ class LocalMapFrame(wx.Frame):
             log.debug("other_side: %s" % other_side)
 
             if other_side.map_name not in wx.GetApp().local_map_windows:
-                win =  LocalMapFrame(None, other_side.map_name)
+                win =  LocalMapFrame(None, self.ms, other_side.map_name)
                 win.Show()
 
 
 def main():
     #~ app = wx.App()
     app = EhApp()
-    win =  LocalMapFrame(None, pos=(0,0), map_name='Portland')
+    win =  LocalMapFrame(None, MapService(), 'Portland', pos=(0,0))
     win.Show()
 
     log.info("entering main loop")
