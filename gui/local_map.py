@@ -39,14 +39,6 @@ class DoorSprite(LocalMapSprite):
     def __init__(self, ms, door):
         LocalMapSprite.__init__(self, ms, door.map_name)
         self.door = door
-        #~ self.__xml__ = xml
-
-        #~ map_size = str_to_touple(self.__xml__.getparent().get('size'))
-        #~ map_size = ms.map_size(door.map_name)
-        #~ loc = str_to_touple(self.__xml__.get('loc'))
-        #~ loc = door.loc
-        #~ zoom = 512. / map_size[0]
-        #~ self.__dc_loc__ = (loc[0] * zoom, (map_size[1] - loc[1]) * zoom)
         self.__dc_loc__ = self.__to_dc__(door.loc)
         self.__dc_size = 5
 
@@ -76,13 +68,6 @@ class RoomSprite(LocalMapSprite):
         self.__p2_dc__ = self.__to_dc__(p2)
 
     def Draw(self, dc):
-        #~ for n in range(0, 192, 10):
-            #~ p = self.__to_dc__((0, n))
-            #~ DrawMarker(dc, p[0], p[1], 5)
-#~
-        #~ DrawMarker(dc, self.__p1_dc__[0], self.__p1_dc__[1], 5)
-        #~ DrawMarker(dc, self.__p2_dc__[0], self.__p2_dc__[1], 5)
-
         dc.DrawRectangle(self.__p1_dc__[0],
                          self.__p1_dc__[1],
                          self.__p2_dc__[0] - self.__p1_dc__[0],
@@ -159,6 +144,11 @@ class LocalMapWindow(wx.Window):
             dc.SetPen(wx.Pen('blue'))
             DrawMarker(dc, l[0], l[1],  5)
 
+        if wx.GetApp().GetNavTo() and wx.GetApp().GetNavTo().map_name == self.map_name:
+            s = LocalMapSprite(self.ms, self.map_name)
+            l = s.__to_dc__(wx.GetApp().GetNavTo().loc)
+            dc.SetPen(wx.Pen('red'))
+            DrawMarker(dc, l[0], l[1],  5)
 
     def HitTest(self, x, y):
         for item in self.doors:
@@ -216,11 +206,23 @@ class LocalMapFrame(wx.Frame):
                 win =  LocalMapFrame(None, self.ms, other_side.map_name)
                 win.Show()
 
+        if not hit and event.LeftDown():
+            map_size = self.ms.map_size(self.map_name)
+            zoom = map_size[0] / 512.
+            loc = (int(event.GetX() * zoom),
+                   map_size[1] - int(event.GetY() * zoom))
+            log.debug("OnMouse(%s, %s) -> (%s, %s)" % (event.GetX(),
+                                                       event.GetY(),
+                                                       loc[0],
+                                                       loc[1]))
+            wx.GetApp().SetNavTo(Location(self.map_name, loc))
+
+
 def main():
     from eh_app import EhApp
     app = EhApp()
-    #~ win =  LocalMapFrame(None, MapService(), 'Portland', pos=(0,0))
-    win =  LocalMapFrame(None, MapService(), 'Portland Cave', pos=(0,0))
+    win =  LocalMapFrame(None, MapService(), 'Portland', pos=(0,0))
+    #~ win =  LocalMapFrame(None, MapService(), 'Portland Cave', pos=(0,0))
     win.Show()
 
     log.info("entering main loop")

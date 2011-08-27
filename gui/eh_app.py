@@ -7,7 +7,8 @@ class EhApp(wx.App):
         wx.App.__init__(self)
         self.ms = MapService()
         self.local_map_windows = {}
-        self.__nav__from = None
+        self.__nav_from__ = None
+        self.__nav_to__ = None
 
     def GetLocalMapWindow(self, map_name):
         if map_name in self.local_map_windows:
@@ -19,11 +20,17 @@ class EhApp(wx.App):
         return win
 
     def SetNavFrom(self, loc):
-        self.__nav__from = loc
-        #~ if loc.map_name in self.local_map_windows:
-            #~ self.local_map_windows[loc.map_name].wnd.Draw()
+        self.__nav_from__ = loc
         for item in self.local_map_windows.values():
             item.wnd.Draw()
 
     def GetNavFrom(self):
-        return self.__nav__from
+        return self.__nav_from__
+
+    def SetNavTo(self, loc):
+        self.__nav_to__ = loc
+        for item in self.local_map_windows.values():
+            item.wnd.Draw()
+
+    def GetNavTo(self):
+        return self.__nav_to__
