@@ -31,7 +31,7 @@ class MapService():
     def all_doors(self):
         retval = []
         for item in self.doc.xpath('//door'):
-            map_name = item.getparent().get('name')
+            map_name = self.map_name(item)
             retval.append(Door(map_name, item))
         return retval
 
