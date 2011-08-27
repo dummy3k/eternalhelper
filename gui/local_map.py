@@ -9,7 +9,6 @@ from pprint import pprint
 from location import Location
 from map_service import MapService, Door
 from helper import str_to_touple
-from eh_app import EhApp
 
 if __name__ == '__main__':
     logging.config.fileConfig("logging.conf")
@@ -165,6 +164,7 @@ class LocalMapFrame(wx.Frame):
                  size=(512,512), style=wx.DEFAULT_FRAME_STYLE):
 
         title = map_name
+        self.map_name = map_name
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
         wx.GetApp().local_map_windows[map_name] = self
 
@@ -188,6 +188,7 @@ class LocalMapFrame(wx.Frame):
 
         if event.ButtonDClick():
             log.debug("Close!")
+            wx.GetApp().local_map_windows.pop(self.map_name)
             self.Close()
 
         hit = self.wnd.HitTest(event.GetX(), event.GetY())
@@ -208,7 +209,7 @@ class LocalMapFrame(wx.Frame):
                 win.Show()
 
 def main():
-    #~ app = wx.App()
+    from eh_app import EhApp
     app = EhApp()
     #~ win =  LocalMapFrame(None, MapService(), 'Portland', pos=(0,0))
     win =  LocalMapFrame(None, MapService(), 'Portland Cave', pos=(0,0))

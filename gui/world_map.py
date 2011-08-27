@@ -44,15 +44,6 @@ def el_to_dc(el_loc):
     return ((map_loc[0] + loc[0] + MAP_OFFSET[0]) * el_to_bmp,
             (map_loc[1] + map_size[1] - loc[1] + MAP_OFFSET[1]) * el_to_bmp)
 
-
-#~ class MarkerSprite():
-    #~ def __init__(self, loc, color):
-        #~ self.loc = loc
-        #~ self.color = color
-#~
-    #~ def Draw(self, dc):
-
-
 def DrawMarker(dc, x, y, size):
     dc.DrawCircle(x, y, 4)
     dc.DrawLine(x - size,
@@ -121,6 +112,7 @@ class WordMapWindow(wx.Window):
         doc = etree.ElementTree(file='map.xml')
 
         self.sprites = []
+        self.current_map = None
         for item in doc.xpath('//map'):
             if not item.get('loc'):
                 continue
@@ -162,6 +154,14 @@ class WordMapWindow(wx.Window):
         log.debug("MAP_OFFSET: %s" % MAP_OFFSET)
 
     def OnMouse(self, event):
+        if event.LeftDown():
+            for item in self.sprites:
+                if item.HitTest(event.GetX(), event.GetY()):
+                    self.current_map = item
+                    wx.GetApp().GetLocalMapWindow(item.map_name).Raise()
+
+            self.Draw()
+
         if not event.LeftDown() and not event.RightDown():
             return
         log.debug("OnMouse(%s, %s)" % (event.GetX(), event.GetY()))
@@ -174,8 +174,8 @@ class WordMapWindow(wx.Window):
                 #~ log.debug(loc)
                 if event.RightDown():
                     self.nav_from = loc
-                else:
-                    self.nav_to = loc
+                #~ else:
+                    #~ self.nav_to = loc
 
         self.Draw()
 
@@ -192,9 +192,14 @@ class WordMapWindow(wx.Window):
         dc.Blit(0, 0, self.image.GetWidth(), self.image.GetHeight(),
                 png_dc, 0, 0)
 
+
         dc.SetPen(wx.Pen('black'))
         for item in self.sprites:
             item.Draw(dc)
+
+        if self.current_map:
+            dc.SetPen(wx.Pen('yellow'))
+            self.current_map.Draw(dc)
 
         ms = MapService()
         ds = DistanceService(ms)
@@ -301,45 +306,6 @@ class WordMapWindow(wx.Window):
                             pos[0], pos[1])
                 last_pos = pos
 
-
-
-
-        #~ doc = etree.ElementTree(file='map.xml')
-
-        #for item in doc.xpath('//map'):
-            #if not item.get('loc'):
-                #continue
-            #if not item.get('size'):
-                #continue
-
-            #loc = item.get('loc').split(',')
-            #loc = (int(loc[0]), int(loc[1]))
-            #size = item.get('size').split(',')
-            #size = (int(size[0]), int(size[1]))
-#xxxx
-
-        #for item in doc.xpath('//door'):
-        ##~ for item in doc.xpath('//door[@name="Storage Entrance"]'):
-            #if not item.getparent().get('loc'):
-                #continue
-            #if not item.getparent().get('size'):
-                #continue
-            #log.debug(item.get('name'))
-
-            #loc = item.get('loc').split(',')
-            #loc = (int(loc[0]), int(loc[1]))
-            #map_loc = item.getparent().get('loc').split(',')
-            #map_loc = (int(map_loc[0]), int(map_loc[1]))
-            #map_size = item.getparent().get('size').split(',')
-            #map_size = (int(map_size[0]), int(map_size[1]))
-
-            #loc = (map_loc[0] + loc[0],
-                   #map_loc[1] + map_size[1] - loc[1])
-            #log.debug(loc)
-            #loc = (loc[0] + MAP_OFFSET[0], loc[1] + MAP_OFFSET[1])
-            #self.DrawMarker(dc, loc[0] * el_to_bmp, loc[1] * el_to_bmp, 3)
-
-
 class WordMapFrame(wx.Frame):
     def __init__(self, parent, id=wx.ID_ANY, title="WordMapFrame", pos=wx.DefaultPosition,
                  size=(512,512), style=wx.DEFAULT_FRAME_STYLE):
@@ -350,9 +316,9 @@ class WordMapFrame(wx.Frame):
         self.wnd = WordMapWindow(self)
         self.wnd.SetSize(self.GetSize())
 
-
 def main():
-    app = wx.App()
+    from eh_app import EhApp
+    app = EhApp()
     win =  WordMapFrame(None, pos=(0,0))
     win.Show()
 
