@@ -13,7 +13,7 @@
         <door name='North Exit to Nordcarn' loc='302,756' target='4dc7052c-05ad-4558-b8a2-4b36de58f289' />
         <storage name='Storage' loc='469,421' />
     </map>
-    <map name='Desert Pines' loc="0,0" size="384,384">
+    <map name='Desert Pines' image='map3.bmp' loc="0,0" size="384,384">
         <door name='Crystal Cavern, North Entrance' loc='44,302' target='e8fe56eb-c741-43f8-bf18-c9982269daf6' />
         <door name='Crystal Cavern, East Entrance' loc='148,226' target='32b0493e-8a20-4f7d-b390-444be2e6d962' />
         <door name='Storage Entrance' loc='166,100' target='2df1be6d-6c2c-46f1-a5fc-c0c137950b14' />
@@ -25,7 +25,7 @@
         <door name='Teleport North/West' loc='18,331' target='a3761cb4-d68a-431e-9028-f5d4626e63bd' />
         <door name='Teleport North/West Center' loc='116,165' target='efb1f37f-763d-4e9a-9469-96131ddb9ddb' />
         <door name='Teleport South/East Center' loc='365,17' target='efb1f37f-763d-4e9a-9469-96131ddb9ddb' />
-        <map name='Crystal Cavern'>
+        <map name='Crystal Cavern' image='cave1.bmp' size="192,192">
             <alias name='CC' />
             <door name='North Entrance' loc='12,176' target='e8fe56eb-c741-43f8-bf18-c9982269daf6' />
             <door name='East Entrance' loc='173,155' target='32b0493e-8a20-4f7d-b390-444be2e6d962' />
