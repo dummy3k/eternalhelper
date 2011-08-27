@@ -27,17 +27,29 @@ def DrawMarker(dc, x, y, size):
                 x - size,
                 y + size)
 
-class DoorSprite():
+class LocalMapSprite():
+    def __init__(self, ms, map_name):
+        self.map_size = ms.map_size(map_name)
+        self.__zoom__ = 512. / self.map_size[0]
+
+    def __to_dc__(self, loc):
+        return (loc[0] * self.__zoom__,
+                (self.map_size[1] - loc[1]) * self.__zoom__)
+
+
+class DoorSprite(LocalMapSprite):
     def __init__(self, ms, door):
+        LocalMapSprite.__init__(self, ms, door.map_name)
         self.door = door
         #~ self.__xml__ = xml
 
         #~ map_size = str_to_touple(self.__xml__.getparent().get('size'))
-        map_size = ms.map_size(door.map_name)
+        #~ map_size = ms.map_size(door.map_name)
         #~ loc = str_to_touple(self.__xml__.get('loc'))
-        loc = door.loc
-        zoom = 512. / map_size[0]
-        self.__dc_loc__ = (loc[0] * zoom, (map_size[1] - loc[1]) * zoom)
+        #~ loc = door.loc
+        #~ zoom = 512. / map_size[0]
+        #~ self.__dc_loc__ = (loc[0] * zoom, (map_size[1] - loc[1]) * zoom)
+        self.__dc_loc__ = self.__to_dc__(door.loc)
         self.__dc_size = 5
 
     def __repr__(self):
@@ -58,6 +70,26 @@ class DoorSprite():
 
         return False
 
+class RoomSprite(LocalMapSprite):
+    def __init__(self, ms, map_name, p1, p2):
+        LocalMapSprite.__init__(self, ms, map_name)
+        log.debug("p1: %s, p1: %s" % (p1, p2))
+        self.__p1_dc__ = self.__to_dc__(p1)
+        self.__p2_dc__ = self.__to_dc__(p2)
+
+    def Draw(self, dc):
+        #~ for n in range(0, 192, 10):
+            #~ p = self.__to_dc__((0, n))
+            #~ DrawMarker(dc, p[0], p[1], 5)
+#~
+        #~ DrawMarker(dc, self.__p1_dc__[0], self.__p1_dc__[1], 5)
+        #~ DrawMarker(dc, self.__p2_dc__[0], self.__p2_dc__[1], 5)
+
+        dc.DrawRectangle(self.__p1_dc__[0],
+                         self.__p1_dc__[1],
+                         self.__p2_dc__[0] - self.__p1_dc__[0],
+                         self.__p2_dc__[1] - self.__p1_dc__[1])
+
 class LocalMapWindow(wx.Window):
     def __init__(self, parent, ms, map_name):
         wx.Window.__init__(self, parent, id=wx.ID_ANY,
@@ -77,9 +109,13 @@ class LocalMapWindow(wx.Window):
 
 
         self.ms = ms
-        self.doors = map(lambda x: DoorSprite(self.ms, Door(map_name, x)),
-                         map_xml.xpath('door'))
+        self.doors = map(lambda x: DoorSprite(self.ms, x),
+                         self.ms.doors(map_name))
 
+        self.rooms = map(lambda x: RoomSprite(ms, map_name,
+                                              str_to_touple(x.get('p1')),
+                                              str_to_touple(x.get('p2'))),
+                         map_xml.xpath('room'))
         self.Bind(wx.EVT_PAINT, self.OnPaint)
         self.Bind(wx.EVT_SIZE, self.OnSize)
         self.Bind(wx.EVT_MOUSE_EVENTS, self.OnMouse)
@@ -102,7 +138,9 @@ class LocalMapWindow(wx.Window):
     def Draw(self):
         log.debug("Draw()")
         dc = wx.BufferedPaintDC(self, self._Buffer)
+        dc.SetBackground(wx.Brush('black'))
         dc.Clear()
+        #~ dc.SetBrush(wx.Brush('red', wx.TRANSPARENT))
 
         if self.image:
             png_dc = wx.MemoryDC()
@@ -110,6 +148,8 @@ class LocalMapWindow(wx.Window):
             dc.Blit(0, 0, self.image.GetWidth(), self.image.GetHeight(),
                     png_dc, 0, 0)
 
+        for item in self.rooms:
+            item.Draw(dc)
         for item in self.doors:
             item.Draw(dc)
 
@@ -163,14 +203,15 @@ class LocalMapFrame(wx.Frame):
             log.debug("other_side: %s" % other_side)
 
             if other_side.map_name not in wx.GetApp().local_map_windows:
+                log.debug("other_side.map_name: %s" % other_side.map_name)
                 win =  LocalMapFrame(None, self.ms, other_side.map_name)
                 win.Show()
-
 
 def main():
     #~ app = wx.App()
     app = EhApp()
-    win =  LocalMapFrame(None, MapService(), 'Portland', pos=(0,0))
+    #~ win =  LocalMapFrame(None, MapService(), 'Portland', pos=(0,0))
+    win =  LocalMapFrame(None, MapService(), 'Portland Cave', pos=(0,0))
     win.Show()
 
     log.info("entering main loop")

@@ -48,7 +48,11 @@
         <door name='East Exit to White Stone' loc='370,167' target='e4a90fc7-f5d3-48cc-8104-4ce26ce6c1be' />
         <door name='South Exit toMarcraven Marsh' loc='314,21' target='33975b15-2ba6-4667-b591-9e4628086e1a' />
         <map name='Portland Cave' size="192,192">
-            <door name='Exit to Portland' loc='175,180' target='b3c6d2c7-5794-42cb-8416-a4134feb5802' />
+            <room p1='150,125' p2='180,180'>
+                <door name='Exit to Portland' loc='175,180' target='b3c6d2c7-5794-42cb-8416-a4134feb5802' />
+            </room>
+            <room p1='110,10' p2='175,65' />
+            <room p1='10,135' p2='70,170' />
             <!--
             <door name='Portland Cave Lvl2' loc='154,128' target='ba1966e8-d22e-4f9c-af31-793a95b21195' />
             <map name='Portland Cave Lvl2'>

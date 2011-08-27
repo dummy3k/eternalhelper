@@ -24,6 +24,8 @@ class MapService():
         retval = []
         for item in self.doc.xpath('//map[@name="%s"]/door' % map_name):
             retval.append(Door(map_name, item))
+        for item in self.doc.xpath('//map[@name="%s"]/*/door' % map_name):
+            retval.append(Door(map_name, item))
         return retval
 
     def all_doors(self):
@@ -33,9 +35,21 @@ class MapService():
             retval.append(Door(map_name, item))
         return retval
 
+    def map_name(self, item):
+        """
+            item is a xml object
+            returns a string
+        """
+        if item.tag == 'map':
+            return item.get('name')
+        elif item.tag == 'door' or item.tag == 'room':
+            return self.map_name(item.getparent())
+        else:
+            raise Exception('could not find map_name')
+
     def other_side(self, door):
         for item in self.doc.xpath('//door[@target="%s"]' % door.target):
-            other = Door(item.getparent().get('name'), item)
+            other = Door(self.map_name(item) , item)
             if other != door:
                 log.debug("%s != %s" % (other, door))
                 return other
