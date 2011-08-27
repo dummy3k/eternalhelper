@@ -143,6 +143,11 @@ class LocalMapFrame(wx.Frame):
         #~ if not event.LeftDown() and not event.RightDown():
             #~ return
         #~ log.debug("OnMouse(%s, %s)" % (event.GetX(), event.GetY()))
+
+        if event.ButtonDClick():
+            log.debug("Close!")
+            self.Close()
+
         hit = self.wnd.HitTest(event.GetX(), event.GetY())
         if hit:
             hit = hit.door
