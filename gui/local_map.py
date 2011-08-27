@@ -69,8 +69,12 @@ class LocalMapWindow(wx.Window):
         doc = etree.ElementTree(file='map.xml')
         map_xml = doc.xpath('//map[@name="%s"]' % map_name)[0]
 
-        bg_image_path = os.path.expanduser('~/bin/el_linux/maps/%s' % map_xml.get('image'))
-        self.image = wx.Image(bg_image_path, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        if map_xml.get('image'):
+            bg_image_path = os.path.expanduser('~/bin/el_linux/maps/%s' % map_xml.get('image'))
+            self.image = wx.Image(bg_image_path, wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+        else:
+            self.image = None
+
 
         self.ms = ms
         self.doors = map(lambda x: DoorSprite(self.ms, Door(map_name, x)),
@@ -100,13 +104,11 @@ class LocalMapWindow(wx.Window):
         dc = wx.BufferedPaintDC(self, self._Buffer)
         dc.Clear()
 
-        if not self.image:
-            return
-
-        png_dc = wx.MemoryDC()
-        png_dc.SelectObject(self.image)
-        dc.Blit(0, 0, self.image.GetWidth(), self.image.GetHeight(),
-                png_dc, 0, 0)
+        if self.image:
+            png_dc = wx.MemoryDC()
+            png_dc.SelectObject(self.image)
+            dc.Blit(0, 0, self.image.GetWidth(), self.image.GetHeight(),
+                    png_dc, 0, 0)
 
         for item in self.doors:
             item.Draw(dc)
