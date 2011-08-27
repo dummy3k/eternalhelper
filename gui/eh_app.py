@@ -71,7 +71,6 @@ class EhApp(wx.App):
         for map_name, map_nodes in map_dict.items():
             for index, item_a in enumerate(map_nodes):
                 for item_b in map_nodes[index + 1:]:
-                    #~ cost = ds.cost(item_a.payload, item_b.payload)
                     cost = self.ds.in_map_distance(item_a.payload, item_b.payload)
                     add_edge(cost, item_a, item_b)
 

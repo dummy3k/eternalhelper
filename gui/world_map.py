@@ -6,14 +6,9 @@ import os
 from lxml import etree
 from pprint import pprint
 
-#~ import map_info
-#~ from get_location import get_last_location
-#~ from log_thread import LogThread, LocationChangedEvent, EVT_LOCATION_CHANGED
 from location import Location
 from map_service import MapService
 from distance_service import DistanceService
-
-#~ from route import
 
 if __name__ == '__main__':
     logging.config.fileConfig("logging.conf")
