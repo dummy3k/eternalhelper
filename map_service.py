@@ -1,6 +1,7 @@
 import logging
 from lxml import etree
 from location import Location
+from helper import str_to_touple
 
 log = logging.getLogger(__name__)
 
@@ -39,3 +40,7 @@ class MapService():
                 log.debug("%s != %s" % (other, door))
                 return other
         return None
+
+    def map_size(self, map_name):
+        map_xml = self.doc.xpath('//map[@name="%s"]' % map_name)[0]
+        return str_to_touple(map_xml.get('size'))
