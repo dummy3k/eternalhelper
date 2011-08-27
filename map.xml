@@ -56,6 +56,7 @@
             </map>
             -->
         </map>
+        <harvestable type='Fruit' loc='179,100' />
     </map>
     <map name='Nordcarn' loc="576,192" size="192,192">
         <door name='North Exit to VotD' loc='51,184' target='be1c5c56-7df9-4ab4-a653-b44a2d031c46' />
