@@ -121,9 +121,10 @@ class LocalMapWindow(wx.Window):
 
 class LocalMapFrame(wx.Frame):
     def __init__(self, parent, ms, map_name, id=wx.ID_ANY,
-                 title="LocalMapFrame", pos=wx.DefaultPosition,
+                 pos=wx.DefaultPosition,
                  size=(512,512), style=wx.DEFAULT_FRAME_STYLE):
 
+        title = map_name
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
         wx.GetApp().local_map_windows[map_name] = self
 
@@ -144,6 +145,11 @@ class LocalMapFrame(wx.Frame):
         #~ if not event.LeftDown() and not event.RightDown():
             #~ return
         #~ log.debug("OnMouse(%s, %s)" % (event.GetX(), event.GetY()))
+
+        if event.ButtonDClick():
+            log.debug("Close!")
+            self.Close()
+
         hit = self.wnd.HitTest(event.GetX(), event.GetY())
         if hit:
             hit = hit.door
