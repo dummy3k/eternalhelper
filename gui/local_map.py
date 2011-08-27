@@ -96,14 +96,29 @@ class DoorSprite():
     def __init__(self, xml):
         self.__xml__ = xml
 
-    def Draw(self, dc):
         map_size = str_to_touple(self.__xml__.getparent().get('size'))
         loc = str_to_touple(self.__xml__.get('loc'))
         zoom = 512. / map_size[0]
+        self.__dc_loc__ = (loc[0] * zoom, (map_size[1] - loc[1]) * zoom)
+        self.__dc_size = 5
+
+    def __repr__(self):
+        return "DoorSprite('%s')" % self.__xml__.get('name')
+
+    def Draw(self, dc):
         DrawMarker(dc,
-                   loc[0] * zoom,
-                   (map_size[1] - loc[1]) * zoom,
-                   5)
+                   self.__dc_loc__[0],
+                   self.__dc_loc__[1],
+                   self.__dc_size)
+
+    def HitTest(self, x, y):
+        if x >= self.__dc_loc__[0] - self.__dc_size and\
+           x <= self.__dc_loc__[0] + self.__dc_size and\
+           y >= self.__dc_loc__[1] - self.__dc_size and\
+           y <= self.__dc_loc__[1] + self.__dc_size:
+               return True
+
+        return False
 
 class LocalMapWindow(wx.Window):
     def __init__(self, parent, map_name):
@@ -156,6 +171,12 @@ class LocalMapWindow(wx.Window):
         for item in self.doors:
             item.Draw(dc)
 
+    def HitTest(self, x, y):
+        for item in self.doors:
+            if item.HitTest(x, y):
+                return item
+        return None
+
 class LocalMapFrame(wx.Frame):
     def __init__(self, parent, map_name, id=wx.ID_ANY,
                  title="LocalMapFrame", pos=wx.DefaultPosition,
@@ -165,6 +186,24 @@ class LocalMapFrame(wx.Frame):
 
         self.wnd = LocalMapWindow(self, map_name=map_name)
         self.wnd.SetSize(self.GetSize())
+
+        self.status_bar = wx.StatusBar(self)
+        self.SetStatusBar(self.status_bar)
+
+        self.SetSize((size[0], size[1] + self.status_bar.GetSize()[1]))
+
+        self.wnd.Bind(wx.EVT_MOUSE_EVENTS, self.OnMouse)
+
+    def OnMouse(self, event):
+        #~ if not event.LeftDown() and not event.RightDown():
+            #~ return
+        #~ log.debug("OnMouse(%s, %s)" % (event.GetX(), event.GetY()))
+        hit = self.wnd.HitTest(event.GetX(), event.GetY())
+        if hit:
+            log.debug(hit)
+            self.status_bar.SetStatusText(str(hit), 0)
+        else:
+            self.status_bar.SetStatusText("", 0)
 
 def main():
     app = wx.App()
