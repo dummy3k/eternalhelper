@@ -21,6 +21,10 @@
         <door name='Ship to Portland' loc='366,323' target='90a9a027-56e4-4027-a82a-5e00caa3bf91' />
         <door name='Ship to White Stone' loc='351,350' target='87b615f6-1a2e-4a7d-9fac-23cf0c239ebe' />
         <door name='South Exit to Portland' loc='172,12' target='fa1fb772-8466-4f82-b3d9-02d44fb072c9' />
+        <door name='Teleport East' loc='357,198' target='a3761cb4-d68a-431e-9028-f5d4626e63bd' />
+        <door name='Teleport North/West' loc='18,331' target='a3761cb4-d68a-431e-9028-f5d4626e63bd' />
+        <door name='Teleport North/West Center' loc='116,165' target='efb1f37f-763d-4e9a-9469-96131ddb9ddb' />
+        <door name='Teleport South/East Center' loc='365,17' target='efb1f37f-763d-4e9a-9469-96131ddb9ddb' />
         <map name='Crystal Cavern'>
             <alias name='CC' />
             <door name='North Entrance' loc='12,176' target='e8fe56eb-c741-43f8-bf18-c9982269daf6' />
