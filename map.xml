@@ -41,7 +41,7 @@
         <door name='Ship to Desert Pines' loc='68,170' target='4e333f7a-4df3-475b-8742-6bb4d4f34e06' />
         <door name='South Exit to Nordcarn' loc='70,8' target='be1c5c56-7df9-4ab4-a653-b44a2d031c46' />
     </map>
-    <map name='Portland' loc="0,384" size="384,384">
+    <map name='Portland' image='map6nf.bmp' loc="0,384" size="384,384">
         <door name='Ship to Desert Pines' loc='141,58' target='90a9a027-56e4-4027-a82a-5e00caa3bf91' />
         <door name='North Exit to Desert Pines' loc='170,368' target='fa1fb772-8466-4f82-b3d9-02d44fb072c9' />
         <door name='Portland Cave' loc='89,143' target='b3c6d2c7-5794-42cb-8416-a4134feb5802' />
