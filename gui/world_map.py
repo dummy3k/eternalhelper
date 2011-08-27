@@ -125,7 +125,6 @@ class WordMapWindow(wx.Window):
             size = (int(size[0]), int(size[1]))
             self.sprites.append(MapSprite(loc, size, item.get('name')))
 
-        self.nav_from = None
         self.nav_to = None
 
     def OnSize(self, event):
@@ -173,7 +172,7 @@ class WordMapWindow(wx.Window):
             if loc:
                 #~ log.debug(loc)
                 if event.RightDown():
-                    self.nav_from = loc
+                    wx.GetApp().SetNavFrom(loc)
                 #~ else:
                     #~ self.nav_to = loc
 
@@ -214,18 +213,18 @@ class WordMapWindow(wx.Window):
             dc.SetPen(wx.Pen('green'))
             DrawElLocation(dc, ds.nearest_door(self.nav_to))
 
-        if self.nav_from:
+        if wx.GetApp().GetNavFrom():
             dc.SetPen(wx.Pen('blue'))
-            DrawElLocation(dc, self.nav_from)
+            DrawElLocation(dc, wx.GetApp().GetNavFrom())
 
             dc.SetPen(wx.Pen('yellow'))
-            for item in ms.doors(self.nav_from.map_name):
+            for item in ms.doors(wx.GetApp().GetNavFrom().map_name):
                 DrawElLocation(dc, item)
             dc.SetPen(wx.Pen('green'))
-            DrawElLocation(dc, ds.nearest_door(self.nav_from))
+            DrawElLocation(dc, ds.nearest_door(wx.GetApp().GetNavFrom()))
 
 
-        if self.nav_to and self.nav_from:
+        if self.nav_to and wx.GetApp().GetNavFrom():
             from dijkstra import Node, add_edge, solve, get_route
             #~ all_doors = ms.all_doors()
             #~ nodes = map(lambda x: Node(x), all_doors)
@@ -239,8 +238,8 @@ class WordMapWindow(wx.Window):
 
                 map_dict[item.map_name].append(node)
 
-            from_node = Node(self.nav_from)
-            map_dict[self.nav_from.map_name].append(from_node)
+            from_node = Node(wx.GetApp().GetNavFrom())
+            map_dict[wx.GetApp().GetNavFrom().map_name].append(from_node)
 
             to_node = Node(self.nav_to)
             map_dict[self.nav_to.map_name].append(to_node)
@@ -259,28 +258,10 @@ class WordMapWindow(wx.Window):
                 cost = 1
                 node.edges.append((cost, node_dict[other_item]))
 
-            node_dict[self.nav_from] = from_node
+            node_dict[wx.GetApp().GetNavFrom()] = from_node
             node_dict[self.nav_to] = to_node
 
-
-            #~ near_from = ds.nearest_door(self.nav_from)
-            #~ from_node = Node(self.nav_from)
-            #~ from_node.cost = 0
-            #~ add_edge(ds.cost(self.nav_from, near_from), from_node, node_dict[near_from])
-            #~ node_dict[self.nav_from] = from_node
-#~
-            #~ near_to = ds.nearest_door(self.nav_to)
-            #~ to_node = Node(self.nav_to)
-            #~ add_edge(ds.cost(self.nav_from, near_from), from_node, node_dict[near_from])
-            #~ node_dict[self.nav_to] = to_node
-
-
             nodes = node_dict.values()
-            #~ for item in nodes:
-                #~ for edge in item.edges:
-                    #~ if not edge[1] in nodes:
-                        #~ print "fooo"
-
             for item in nodes:
                 log.debug(item)
                 for item_b in item.edges:

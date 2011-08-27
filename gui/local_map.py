@@ -35,7 +35,6 @@ class LocalMapSprite():
         return (loc[0] * self.__zoom__,
                 (self.map_size[1] - loc[1]) * self.__zoom__)
 
-
 class DoorSprite(LocalMapSprite):
     def __init__(self, ms, door):
         LocalMapSprite.__init__(self, ms, door.map_name)
@@ -97,6 +96,7 @@ class LocalMapWindow(wx.Window):
                           #| wx.SUNKEN_BORDER
                            , name="sink")
 
+        self.map_name = map_name
         doc = etree.ElementTree(file='map.xml')
         map_xml = doc.xpath('//map[@name="%s"]' % map_name)[0]
 
@@ -147,10 +147,18 @@ class LocalMapWindow(wx.Window):
             dc.Blit(0, 0, self.image.GetWidth(), self.image.GetHeight(),
                     png_dc, 0, 0)
 
+        dc.SetPen(wx.Pen('black'))
         for item in self.rooms:
             item.Draw(dc)
         for item in self.doors:
             item.Draw(dc)
+
+        if wx.GetApp().GetNavFrom() and wx.GetApp().GetNavFrom().map_name == self.map_name:
+            s = LocalMapSprite(self.ms, self.map_name)
+            l = s.__to_dc__(wx.GetApp().GetNavFrom().loc)
+            dc.SetPen(wx.Pen('blue'))
+            DrawMarker(dc, l[0], l[1],  5)
+
 
     def HitTest(self, x, y):
         for item in self.doors:
