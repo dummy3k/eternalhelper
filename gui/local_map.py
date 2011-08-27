@@ -15,6 +15,13 @@ if __name__ == '__main__':
 
 log = logging.getLogger(__name__)
 
+def el_to_dc(ms, loc):
+    map_size = ms.map_size(loc.map_name)
+    __zoom__ = 512. / map_size[0]
+    return (loc.loc[0] * __zoom__,
+            (map_size[1] - loc.loc[1]) * __zoom__)
+
+
 def DrawMarker(dc, x, y, size):
     dc.DrawCircle(x, y, 4)
     dc.DrawLine(x - size,
@@ -149,6 +156,20 @@ class LocalMapWindow(wx.Window):
             l = s.__to_dc__(wx.GetApp().GetNavTo().loc)
             dc.SetPen(wx.Pen('red'))
             DrawMarker(dc, l[0], l[1],  5)
+
+        if wx.GetApp().GetRoute():
+            dc.SetPen(wx.Pen('blue'))
+            last_pos = None
+            for item in wx.GetApp().GetRoute():
+                if item.payload.map_name != self.map_name:
+                    continue
+                log.debug(item)
+                pos = el_to_dc(self.ms, item.payload)
+                if last_pos:
+                    dc.DrawLine(last_pos[0], last_pos[1],
+                                pos[0], pos[1])
+                last_pos = pos
+
 
     def HitTest(self, x, y):
         for item in self.doors:

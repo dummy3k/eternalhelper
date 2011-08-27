@@ -223,59 +223,9 @@ class WordMapWindow(wx.Window):
 
 
         if wx.GetApp().GetNavTo() and wx.GetApp().GetNavFrom():
-            from dijkstra import Node, add_edge, solve, get_route
-            #~ all_doors = ms.all_doors()
-            #~ nodes = map(lambda x: Node(x), all_doors)
-            node_dict = {}
-            map_dict = {}
-            for item in ms.all_doors():
-                node = Node(item)
-                node_dict[item] = node
-                if not item.map_name in map_dict:
-                    map_dict[item.map_name] = []
-
-                map_dict[item.map_name].append(node)
-
-            from_node = Node(wx.GetApp().GetNavFrom())
-            map_dict[wx.GetApp().GetNavFrom().map_name].append(from_node)
-
-            to_node = Node(wx.GetApp().GetNavTo())
-            map_dict[wx.GetApp().GetNavTo().map_name].append(to_node)
-
-
-            for map_name, map_nodes in map_dict.items():
-                for index, item_a in enumerate(map_nodes):
-                    for item_b in map_nodes[index + 1:]:
-                        #~ cost = ds.cost(item_a.payload, item_b.payload)
-                        cost = ds.in_map_distance(item_a.payload, item_b.payload)
-                        add_edge(cost, item_a, item_b)
-
-            for item, node in node_dict.items():
-                other_item = ms.other_side(item)
-                cost = ds.cost(item, other_item)
-                cost = 1
-                node.edges.append((cost, node_dict[other_item]))
-
-            node_dict[wx.GetApp().GetNavFrom()] = from_node
-            node_dict[wx.GetApp().GetNavTo()] = to_node
-
-            nodes = node_dict.values()
-            for item in nodes:
-                log.debug(item)
-                for item_b in item.edges:
-                    log.debug("  %s" % str(item_b))
-
-            from_node.cost = 0
-            solve(nodes)
-            for item in nodes:
-                log.debug(item)
-            log.debug("ROUTE:")
-            route = get_route(nodes, node_dict[wx.GetApp().GetNavTo()])
-            for item in route:
-                log.debug(item)
-
-            #~ pprint(nodes)
-            #~ print node_dict
+            route = wx.GetApp().GetRoute()
+            #~ for item in route:
+                #~ log.debug(item)
 
             dc.SetPen(wx.Pen('blue'))
             last_pos = el_to_dc(route[0].payload)

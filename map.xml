@@ -37,7 +37,7 @@
             <npc type='Storage' loc='99,43' />
         </map>
     </map>
-    <map name='Valley of the Dwarfs' loc="576,0" size="192,192">
+    <map name='Valley of the Dwarfs' image='map5nf.bmp' loc="576,0" size="192,192">
         <door name='Ship to Desert Pines' loc='68,170' target='4e333f7a-4df3-475b-8742-6bb4d4f34e06' />
         <door name='South Exit to Nordcarn' loc='70,8' target='be1c5c56-7df9-4ab4-a653-b44a2d031c46' />
     </map>
