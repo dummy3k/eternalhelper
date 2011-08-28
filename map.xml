@@ -1,8 +1,8 @@
 <maps>
-    <map name='Isla Prima' image='startmap.bmp' size="192,192">
+    <map name='Isla Prima' image='startmap.bmp' loc="1274,1195" size="192,192">
         <alias name='Isla Prima - The docks' />
         <door name='Ship to White Stone' loc='26,23' target='36055d82-a32d-40a2-aa4a-c6bf5134a39a' />
-        <beam name='beam' loc='97,114' />
+        <beam name='beam' loc='104,143' />
     </map>
     <map name='White Stone' image='map2.bmp' loc="384,384" size="768,768">
         <alias name='White Stone, Lakeside Village' />
@@ -46,7 +46,7 @@
         <door name='North Exit to Desert Pines' loc='170,368' target='fa1fb772-8466-4f82-b3d9-02d44fb072c9' />
         <door name='Portland Cave' loc='89,143' target='b3c6d2c7-5794-42cb-8416-a4134feb5802' />
         <door name='East Exit to White Stone' loc='370,167' target='e4a90fc7-f5d3-48cc-8104-4ce26ce6c1be' />
-        <door name='South Exit toMarcraven Marsh' loc='314,21' target='33975b15-2ba6-4667-b591-9e4628086e1a' />
+        <door name='South Exit to Marcraven Marsh' loc='314,21' target='33975b15-2ba6-4667-b591-9e4628086e1a' />
         <map name='Portland Cave' size="192,192">
             <room p1='150,125' p2='180,180'>
                 <door name='Exit to Portland' loc='175,180' target='b3c6d2c7-5794-42cb-8416-a4134feb5802' />

@@ -19,6 +19,7 @@ el_to_bmp = 50. / 192
 el_to_bmp = 94. / 384
 el_to_bmp = 294. / (384 * 3)
 MAP_OFFSET = [318, 234]
+IP_OFFSET = [0,0]
 
 def el_to_dc(el_loc):
     doc = etree.ElementTree(file='map.xml')
@@ -69,10 +70,16 @@ class MapSprite():
     def Draw(self, dc):
         loc, size = self.__loc_size__()
         dc.SetBrush(wx.Brush('red', wx.TRANSPARENT))
-        dc.DrawRectangle(loc[0] * el_to_bmp,
-                         loc[1] * el_to_bmp,
-                         size[0] * el_to_bmp + 1,
-                         size[1] * el_to_bmp + 1)
+        if self.map_name == 'Isla Prima':
+            dc.DrawRectangle((loc[0] + IP_OFFSET[0]) * el_to_bmp,
+                             (loc[1] + IP_OFFSET[1]) * el_to_bmp,
+                             size[0] * el_to_bmp + 1,
+                             size[1] * el_to_bmp + 1)
+        else:
+            dc.DrawRectangle(loc[0] * el_to_bmp,
+                             loc[1] * el_to_bmp,
+                             size[0] * el_to_bmp + 1,
+                             size[1] * el_to_bmp + 1)
 
     def HitTest(self, x, y):
         loc, size = self.__loc_size__()
@@ -88,7 +95,7 @@ class MapSprite():
                   self.__size__[1] - (el_loc[1] - MAP_OFFSET[1] - self.__loc__[1]))
         return Location(self.map_name, el_loc)
 
-class WordMapWindow(wx.Window):
+class WorldMapWindow(wx.Window):
     def __init__(self, parent):
         wx.Window.__init__(self, parent, id=wx.ID_ANY,
                             style=wx.WANTS_CHARS
@@ -134,16 +141,16 @@ class WordMapWindow(wx.Window):
         log.debug("OnKeyDown()")
         #~ log.debug(event.GetKeyCode())
         if event.GetKeyCode() == wx.WXK_RIGHT:
-            MAP_OFFSET[0] += 1
+            IP_OFFSET[0] += 1
         elif event.GetKeyCode() == wx.WXK_LEFT:
-            MAP_OFFSET[0] -= 1
+            IP_OFFSET[0] -= 1
         elif event.GetKeyCode() == wx.WXK_UP:
-            MAP_OFFSET[1] -= 1
+            IP_OFFSET[1] -= 1
         elif event.GetKeyCode() == wx.WXK_DOWN:
-            MAP_OFFSET[1] += 1
+            IP_OFFSET[1] += 1
 
         self.Draw()
-        log.debug("MAP_OFFSET: %s" % MAP_OFFSET)
+        log.debug("MAP_OFFSET: %s" % IP_OFFSET)
 
     def OnMouse(self, event):
         if event.LeftDown():
@@ -237,7 +244,7 @@ class WordMapFrame(wx.Frame):
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
 
 
-        self.wnd = WordMapWindow(self)
+        self.wnd = WorldMapWindow(self)
         self.wnd.SetSize(self.GetSize())
 
 def main():

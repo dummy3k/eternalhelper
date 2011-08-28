@@ -67,6 +67,12 @@ class EhApp(wx.App):
         to_node = Node(wx.GetApp().GetNavTo())
         map_dict[wx.GetApp().GetNavTo().map_name].append(to_node)
 
+        #beam
+        beam_node = Node(self.ms.beam_location())
+        log.debug("beam_node: %s" % beam_node)
+        from_node.edges.append((1, beam_node))
+        map_dict[beam_node.payload.map_name].append(beam_node)
+
 
         for map_name, map_nodes in map_dict.items():
             for index, item_a in enumerate(map_nodes):
@@ -82,6 +88,7 @@ class EhApp(wx.App):
 
         node_dict[wx.GetApp().GetNavFrom()] = from_node
         node_dict[wx.GetApp().GetNavTo()] = to_node
+        node_dict[self.ms.beam_location()] = beam_node
 
         nodes = node_dict.values()
         for item in nodes:

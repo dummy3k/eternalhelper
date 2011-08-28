@@ -40,9 +40,10 @@ class MapService():
             item is a xml object
             returns a string
         """
+        ask_parent = ['door', 'room', 'beam']
         if item.tag == 'map':
             return item.get('name')
-        elif item.tag == 'door' or item.tag == 'room':
+        elif item.tag in ask_parent:
             return self.map_name(item.getparent())
         else:
             raise Exception('could not find map_name')
@@ -58,3 +59,8 @@ class MapService():
     def map_size(self, map_name):
         map_xml = self.doc.xpath('//map[@name="%s"]' % map_name)[0]
         return str_to_touple(map_xml.get('size'))
+
+    def beam_location(self):
+        loc_xml = self.doc.xpath('//beam')[0]
+        return Location(self.map_name(loc_xml),
+                        str_to_touple(loc_xml.get('loc')))
